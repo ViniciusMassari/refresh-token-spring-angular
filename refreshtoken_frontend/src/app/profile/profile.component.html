@@ -1,0 +1,9 @@
+@let user = authService.currentUser();
+
+@if (user != null) {
+<p>{{user.username}}</p>
+<p>{{user.email}}</p>
+}
+
+<button class="btn" (click)="getResource()">Make GET request</button>
+<p>Status returned: {{status}} </p>
