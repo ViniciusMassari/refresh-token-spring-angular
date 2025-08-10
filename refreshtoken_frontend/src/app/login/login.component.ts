@@ -14,14 +14,11 @@ import { HttpErrorResponse } from '@angular/common/http';
   providers: [AuthService],
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   authService = inject(AuthService);
   formService = inject(LoginFormService);
   router = inject(Router);
   errorMessage = signal('');
-  ngOnInit() {
-    this.formService.init();
-  }
 
   login() {
     const form = this.formService.form;
@@ -31,10 +28,8 @@ export class LoginComponent implements OnInit {
       .pipe(take(1), catchError(this.handleError.bind(this)))
       .subscribe({
         next: (response) => {
-
           const jwt = response.body?.jwt;
           if (jwt) {
-
             this.authService.saveUserInfo(jwt);
 
             this.router.navigate(['profile']);

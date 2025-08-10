@@ -14,8 +14,6 @@ export class ProfileService {
       Authorization: 'Bearer ' + token,
     });
 
-    console.log(headers);
-
     return this.#http.get('/api/user/get-resource', {
       headers,
       observe: 'response',

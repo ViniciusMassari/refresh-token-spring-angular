@@ -12,16 +12,12 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
   imports: [ReactiveFormsModule, ErrorMsgComponent, RouterLink],
   templateUrl: './signin.component.html',
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent {
   formService = inject(SigninFormService);
   authService = inject(AuthService);
   router = inject(Router);
 
   errorMessage = signal('');
-
-  ngOnInit() {
-    this.formService.init();
-  }
 
   signInUser() {
     const form = this.formService.form;
@@ -31,10 +27,10 @@ export class SigninComponent implements OnInit {
     }
 
     this.authService
-      .signInUser(form.value)
+      .signInUser(form.value as SignInInfo)
       .pipe(take(1))
       .subscribe({
-        next: (value: HttpResponse<any>) => {
+        next: () => {
           this.router.navigate(['login']);
           this.errorMessage.set('');
         },
